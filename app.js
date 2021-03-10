@@ -158,6 +158,60 @@ function searchQuery(e) {
   const query = inputField.value.toLowerCase();
   console.log('query:', query);
   fetch(endpoint + query)
-    .then((res) => res.json)
-    .then((data) => console.log(data));
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.images.length === 0) {
+        console.log('nothing found');
+        inputField.value = '';
+        inputField.focus();
+        return;
+      }
+
+      const { images } = data;
+      photoRow.innerHTML = images
+        .map(
+          (img) => `
+        <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+              <img class="card-img-top" src="${img.url}" alt="Card image cap"></img>
+                <div class="card-body">
+                  <p class="card-text">
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary view-btn"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary hide-btn"
+                      >
+                        Hide
+                      </button>
+                    </div>
+                    <small class="text-muted">${img.id}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+      `
+        )
+        .join('');
+      const hides = document.querySelectorAll('.hide-btn');
+      const views = document.querySelectorAll('.view-btn');
+      hides.forEach((btn) => btn.addEventListener('click', hide));
+      views.forEach((btn) => {
+        btn.addEventListener('click', showModal);
+        btn.setAttribute('data-toggle', 'modal');
+        btn.setAttribute('data-target', '#exampleModal');
+      });
+    });
 }
