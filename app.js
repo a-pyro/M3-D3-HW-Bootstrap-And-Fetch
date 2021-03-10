@@ -46,11 +46,15 @@ const loadImgsBtn = document.querySelector('.jumbotron a.btn.btn-primary');
 const loadSecondaryImgsBtn = document.querySelector(
   '.jumbotron a.btn.btn-secondary'
 );
-
 const modal = document.getElementById('exampleModal');
-console.log(modal);
+const form = document.querySelector('nav .form-inline');
+const photoRow = document.getElementById('photoRow');
+const inputField = document.querySelector('input[type="search"]');
+
 loadImgsBtn.addEventListener('click', fetchData);
 loadSecondaryImgsBtn.addEventListener('click', fetchData);
+form.addEventListener('submit', searchQuery);
+
 viewbtns.forEach((btn) => {
   btn.addEventListener('click', showModal);
   btn.setAttribute('data-toggle', 'modal');
@@ -73,6 +77,44 @@ function fetchData(e) {
     .then((data) => {
       const { images } = data;
       console.log(images);
+      /*  photoRow.innerHTML = images
+        .map(
+          (img) => `
+        <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+              <img class="card-img-top" src="${img.url}" alt="Card image cap"></img>
+                <div class="card-body">
+                  <p class="card-text">
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <small class="text-muted">${img.id}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+      `
+        )
+        .join(''); */
+
       cards.forEach((card, idx) => {
         const small = card.querySelector('small');
         small.innerText = images[idx].id;
@@ -101,5 +143,21 @@ editBtns.forEach((btn) => {
 function hide(e) {
   console.log(e.target);
   const card = e.target.closest('.card');
-  card.style.opacity = '0';
+  // card.style.opacity = '0';
+  const col = card.closest('.col-md-4');
+  col.classList.add('animate__animated', 'animate__faster', 'animate__zoomOut');
+  setTimeout(() => {
+    col.remove();
+  }, 500);
+}
+
+function searchQuery(e) {
+  e.preventDefault();
+  console.log(e.target);
+  console.log(inputField.value);
+  const query = inputField.value.toLowerCase();
+  console.log('query:', query);
+  fetch(endpoint + query)
+    .then((res) => res.json)
+    .then((data) => console.log(data));
 }

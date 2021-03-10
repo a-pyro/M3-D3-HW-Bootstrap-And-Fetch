@@ -121,19 +121,27 @@
           </p>
           <p class="">
             <a href="#" class="btn btn-primary my-2">Load Images</a>
-            <input
-              class="form-control d-inline-block"
-              type="text"
-              placeholder="enter query search"
-            />
             <a href="#" class="btn btn-secondary my-2">Load Secondary Images</a>
           </p>
         </div>
+        <nav class="navbar navbar-light bg-light justify-content-center">
+          <form class="form-inline">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </nav>
       </section>
 
       <div class="album py-5 bg-light">
         <div class="container">
-          <div class="row">
+          <div id="photoRow" class="row">
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <svg
