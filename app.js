@@ -1,5 +1,6 @@
 'use strict';
-
+$('.toast').toast(option);
+// window.onload = showToaster(8);
 console.log('Hi there! 🔥');
 const shit = '💩',
   fire = '🔥',
@@ -10,15 +11,15 @@ const shit = '💩',
 
         Starting from the current "base" bootstrap layout, implement the following exercise:
 
-        x1) When pressing on Load Images button, load the pictures from http://www.splashbase.co/api/v1/images/search?query=your query
-        x2) When pressing on Load Seconday Images, load the pictures from http://www.splashbase.co/api/v1/images/search?query=your secondary query
+        x 1) When pressing on Load Images button, load the pictures from http://www.splashbase.co/api/v1/images/search?query=your query
+        x 2) When pressing on Load Seconday Images, load the pictures from http://www.splashbase.co/api/v1/images/search?query=your secondary query
        x 3) When the user clicks on the "VIEW" button inside the Card, open the specified image in a modal view
-        4) The Edit button should be replace with a "Hide" button. 
-        5) When the hide button is pressed, the whole picture card disappears.
-        6) Replace the "9 mins" string in the card template with the ID of the Image
+       X 4) The Edit button should be replace with a "Hide" button. 
+       X 5) When the hide button is pressed, the whole picture card disappears.
+       X 6) Replace the "9 mins" string in the card template with the ID of the Image
         
         [EXTRA]
-        7) Add in the "jumbotron" a search field. If there is a value there and the user press "Load Seconday Image" the API call should use the specified query as query
+      X  7) Add in the "jumbotron" a search field. If there is a value there and the user press "Load Seconday Image" the API call should use the specified query as query
         8) After every button is pressed, display in an alert for 5 seconds the result of the operation (es.: 20 images loaded)
         9) Handle API error gracefully using alert components with the message inside
         10) Add at the bottom of the page a carousel with "forest" images loaded by another API call
@@ -215,3 +216,21 @@ function searchQuery(e) {
       });
     });
 }
+
+const showToaster = (
+  length
+) => `<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <div class="toast" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+      <img src="..." class="rounded mr-2" alt="...">
+      <strong class="mr-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      ${length} Images loaded!
+    </div>
+  </div>
+</div>`;
