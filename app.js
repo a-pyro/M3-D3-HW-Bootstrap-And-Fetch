@@ -45,35 +45,7 @@ loadSecondaryImgsBtn.addEventListener('click', fetchData);
 {
   /* <img class="card-img-top" src="..." alt="Card image cap"></img> */
 }
-/* function fetchData(e) {
-  e.preventDefault();
-  // console.log(e.target);
-  if (e.target.classList.contains('btn-primary')) {
-    // console.log('firstbtn');
-    fetch(`${endpoint}mountain`)
-      .then((res) => res.json())
-      .then((data) => {
-        const { images } = data;
-        console.log(images);
-        cards.forEach((card, idx) => {
-          console.log(card.firstElementChild);
-        });
-      })
-      .catch((err) => console.log(err));
-  } else {
-    // console.log('secondbtn');
-    fetch(`${endpoint}sea`)
-      .then((res) => res.json())
-      .then((data) => {
-        const { images } = data;
-        console.log(images);
-        cards.forEach((card, idx) => {
-          console.log(card.firstElementChild);
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-} */
+
 const endpoint = 'http://www.splashbase.co/api/v1/images/search?query=';
 
 function fetchData(e) {
@@ -97,12 +69,4 @@ function fetchData(e) {
       });
     })
     .catch((err) => console.log(err));
-
-  /*   {
-      const { images } = data;
-      console.log(images);
-      cards.forEach((card, idx) => {
-        console.log(card.firstElementChild);
-      });
-    }) */
 }
