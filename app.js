@@ -33,7 +33,6 @@ const shit = '💩',
         Use arrow functions to make some practice with them
 
         API Docs: http://www.splashbase.co/api */
-const endpoint = 'http://www.splashbase.co/api/v1/images/search?query=';
 
 const cards = document.querySelectorAll('.card');
 const loadImgsBtn = document.querySelector('.jumbotron a.btn.btn-primary');
@@ -46,7 +45,7 @@ loadSecondaryImgsBtn.addEventListener('click', fetchData);
 {
   /* <img class="card-img-top" src="..." alt="Card image cap"></img> */
 }
-function fetchData(e) {
+/* function fetchData(e) {
   e.preventDefault();
   // console.log(e.target);
   if (e.target.classList.contains('btn-primary')) {
@@ -74,4 +73,36 @@ function fetchData(e) {
       })
       .catch((err) => console.log(err));
   }
+} */
+const endpoint = 'http://www.splashbase.co/api/v1/images/search?query=';
+
+function fetchData(e) {
+  e.preventDefault();
+  // console.log(e.target);
+
+  // console.log('firstbtn');
+  fetch(
+    `${endpoint}${
+      e.target.classList.contains('btn-primary') ? 'mountain' : 'sea'
+    }`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const { images } = data;
+      console.log(images);
+      cards.forEach((card, idx) => {
+        card.firstElementChild.remove(); //get rid of svg
+        const imgHTML = `<img class="card-img-top" src="${images[idx].url}" alt="Card image cap"></img>`;
+        card.insertAdjacentHTML('afterbegin', imgHTML); //inserting img
+      });
+    })
+    .catch((err) => console.log(err));
+
+  /*   {
+      const { images } = data;
+      console.log(images);
+      cards.forEach((card, idx) => {
+        console.log(card.firstElementChild);
+      });
+    }) */
 }
