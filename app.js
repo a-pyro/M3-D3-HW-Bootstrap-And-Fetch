@@ -77,7 +77,7 @@ function fetchData(e) {
         const small = card.querySelector('small');
         small.innerText = images[idx].id;
         card.firstElementChild.remove(); //get rid of svg
-        const imgHTML = `<img class="card-img-top" src="${images[idx].url}" alt="Card image cap"></img>`;
+        const imgHTML = `<img class="card-img-top" src="${images[idx].large_url}" alt="Card image cap"></img>`;
         card.insertAdjacentHTML('afterbegin', imgHTML); //inserting img
       });
     })
@@ -89,7 +89,7 @@ function showModal(e) {
   const img = card.querySelector('img');
   const url = img.src;
   const modalBody = modal.querySelector('.modal-body');
-  modalBody.innerHTML = `<img class="card-img-top" src="${url}" alt="Card image cap"></img>`;
+  modalBody.innerHTML = `<img class="img-fluid" src="${url}" alt="Card image cap"></img>`;
 }
 
 //ex4 /5
