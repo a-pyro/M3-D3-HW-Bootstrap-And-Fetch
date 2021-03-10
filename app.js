@@ -35,16 +35,21 @@ const shit = '💩',
         API Docs: http://www.splashbase.co/api */
 
 const cards = document.querySelectorAll('.card');
+const viewbtns = document.querySelectorAll('.btn.btn-sm.btn-outline-secondary:first-of-type');
 const loadImgsBtn = document.querySelector('.jumbotron a.btn.btn-primary');
 const loadSecondaryImgsBtn = document.querySelector(
   '.jumbotron a.btn.btn-secondary'
 );
 
+const modal = document.getElementById('exampleModal');
+console.log(modal)
 loadImgsBtn.addEventListener('click', fetchData);
 loadSecondaryImgsBtn.addEventListener('click', fetchData);
-{
-  /* <img class="card-img-top" src="..." alt="Card image cap"></img> */
-}
+viewbtns.forEach(btn=>{
+  btn.addEventListener('click', showModal)
+  btn.setAttribute('data-toggle', 'modal')
+  btn.setAttribute('data-target', '#exampleModal')
+});
 
 const endpoint = 'http://www.splashbase.co/api/v1/images/search?query=';
 
@@ -61,7 +66,7 @@ function fetchData(e) {
     .then((res) => res.json())
     .then((data) => {
       const { images } = data;
-      console.log(images);
+      // console.log(images);
       cards.forEach((card, idx) => {
         card.firstElementChild.remove(); //get rid of svg
         const imgHTML = `<img class="card-img-top" src="${images[idx].url}" alt="Card image cap"></img>`;
@@ -69,4 +74,12 @@ function fetchData(e) {
       });
     })
     .catch((err) => console.log(err));
+}
+
+function showModal(e) {
+  const card = e.target.closest('.card');
+  const img = card.querySelector('img');
+  const url = img.src;
+  const modalBody = modal.querySelector('.modal-body');
+  modalBody.innerHTML = `<img class="card-img-top" src="${url}" alt="Card image cap"></img>`;
 }
